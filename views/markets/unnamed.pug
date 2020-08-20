@@ -1,0 +1,100 @@
+extends menu
+
+block market_view
+  .row
+    .col-md-12
+      #summary-panel.panel.panel-default
+        .panel-heading
+          h5 #{settings.locale.unnamed} - #{marketdata.coin}/#{marketdata.exchange} - #{settings.locale.mkt_hours}
+        table.table.table-bordered.summary-table
+          thead
+            tr
+              th #{settings.locale.mkt_high}
+              th #{settings.locale.mkt_low}
+              th #{settings.locale.mkt_volume} (#{marketdata.coin})
+              th #{settings.locale.mkt_volume} (#{marketdata.exchange})
+              th.hidden-xs #{settings.locale.mkt_top_bid}
+              th.hidden-xs #{settings.locale.mkt_top_ask}
+              th.hidden-xs #{settings.locale.mkt_open}
+              th.hidden-xs #{settings.locale.mkt_close}
+              th #{settings.locale.mkt_change}
+          tbody
+            tr
+              td #{marketdata.data.summary.base.high}
+              td #{marketdata.data.summary.base.low}
+              td #{marketdata.data.summary.base.volume}
+              td #{marketdata.data.summary.base.volume_btc}
+              td.hidden-xs #{marketdata.data.summary.base.bid}
+              td.hidden-xs #{marketdata.data.summary.base.ask}
+              td.hidden-xs #{marketdata.data.summary.base.open}
+              td.hidden-xs #{marketdata.data.summary.base.close}
+              - var altmarkets_change = (marketdata.data.summary.base.change);
+              if altmarkets_change >= 0
+                td.success +#{altmarkets_change} %
+              else
+                td.danger #{altmarkets_change} %
+
+    .col-md-12
+      #summary-panel.panel.panel-default
+        .panel-heading
+          h5 #{settings.locale.unnamed} - #{marketdata.coin}/#{'DOGE'} - #{settings.locale.mkt_hours}
+        table.table.table-bordered.summary-table
+          thead
+            tr
+              th #{settings.locale.mkt_high}
+              th #{settings.locale.mkt_low}
+              th #{settings.locale.mkt_volume} (#{marketdata.coin})
+              th #{settings.locale.mkt_volume} (#{'DOGE'})
+              th.hidden-xs #{settings.locale.mkt_top_bid}
+              th.hidden-xs #{settings.locale.mkt_top_ask}
+              th.hidden-xs #{settings.locale.mkt_open}
+              th.hidden-xs #{settings.locale.mkt_close}
+              th #{settings.locale.mkt_change}
+          tbody
+            tr
+              td #{marketdata.data.summary.doge.high}
+              td #{marketdata.data.summary.doge.low}
+              td #{marketdata.data.summary.doge.volume}
+              td #{marketdata.data.summary.doge.volume_btc}
+              td.hidden-xs #{marketdata.data.summary.doge.bid}
+              td.hidden-xs #{marketdata.data.summary.doge.ask}
+              td.hidden-xs #{marketdata.data.summary.doge.open}
+              td.hidden-xs #{marketdata.data.summary.doge.close}
+              - var altmarkets_change = (marketdata.data.summary.doge.change);
+              if altmarkets_change >= 0
+                td.success +#{altmarkets_change} %
+              else
+                td.danger #{altmarkets_change} %
+    .col-md-12
+      #summary-panel.panel.panel-default
+        .panel-heading
+          h5 #{settings.locale.unnamed} - #{marketdata.coin}/#{'ETH'} - #{settings.locale.mkt_hours}
+        table.table.table-bordered.summary-table
+          thead
+            tr
+              th #{settings.locale.mkt_high}
+              th #{settings.locale.mkt_low}
+              th #{settings.locale.mkt_volume} (#{marketdata.coin})
+              th #{settings.locale.mkt_volume} (#{'ETH'})
+              th.hidden-xs #{settings.locale.mkt_top_bid}
+              th.hidden-xs #{settings.locale.mkt_top_ask}
+              th.hidden-xs #{settings.locale.mkt_open}
+              th.hidden-xs #{settings.locale.mkt_close}
+              th #{settings.locale.mkt_change}
+          tbody
+            tr
+              td #{marketdata.data.summary.eth.high}
+              td #{marketdata.data.summary.eth.low}
+              td #{marketdata.data.summary.eth.volume}
+              td #{marketdata.data.summary.eth.volume_btc}
+              td.hidden-xs #{marketdata.data.summary.eth.bid}
+              td.hidden-xs #{marketdata.data.summary.eth.ask}
+              td.hidden-xs #{marketdata.data.summary.eth.open}
+              td.hidden-xs #{marketdata.data.summary.eth.close}
+              - var altmarkets_change = (marketdata.data.summary.eth.change);
+              if altmarkets_change >= 0
+                td.success +#{altmarkets_change} %
+              else
+                td.danger #{altmarkets_change} %
+
+      .footer-padding
