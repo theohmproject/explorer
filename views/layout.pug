@@ -48,6 +48,8 @@ html
             $("#marketCap").text((parseFloat(json.data[0].lastPrice).toFixed(8) * parseInt(parseFloat(json.data[0].supply).toFixed(0))).toLocaleString('en') + ' #{settings.markets.exchange}'.toUpperCase());
             $("#lblConnections").text(json.data[0].connections + ' connections');
             $("#lblBlockcount").text(json.data[0].blockcount + ' blocks');
+            $("#knTotal").text(json.data[0].karmanodeCount);
+            $("#knStable").text(json.data[0].karmanodeStable);
             $("#lblX1").text(' ');
           }});
         }
@@ -120,7 +122,7 @@ html
     div(class=navbarClasses, role='navigation')
       .navbar-header
         button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbar-collapse')
-          span.navbar-toggler-icon 
+          span.navbar-toggler-icon
         a.navbar-brand(href='/')
           if typeof settings.headerlogo !== "undefined" && settings.headerlogo && settings.headerlogo.length > 1
             img(src=settings.headerlogo, style='width:153px;height:45px;')
@@ -201,7 +203,7 @@ html
                   label#difficultyHybrid -
                 else
                   label#difficulty -
-        
+
         .col-md-2.col-sm-12
             img(src=settings.logo, style='margin-top:-15px;height:128px;')
         .col-md-2
@@ -217,10 +219,10 @@ html
                   label#lblX1
                 else
                   label#supply -
-                if settings.index.show_market_cap == true && settings.index.show_market_cap_over_price != true  
-                  <br>  
-                  label ( 
-                  label#marketCap - 
+                if settings.index.show_market_cap == true && settings.index.show_market_cap_over_price != true
+                  <br>
+                  label (
+                  label#marketCap -
                   label )
         .col-md-2
           .card.card-default.d-none.d-md-block.d-block
@@ -241,6 +243,17 @@ html
               strong Market Cap
             .card-body
               label#marketCap -
+        .col-md-2
+          .card.card-default.d-none.d-md-block.d-block
+            .card-header
+              strong Karmanodes&nbsp;
+            .card-body
+              #karmanodecard.d-inline-block
+                span.header-icons.fa.fa-cubes
+                label#knStable -
+                label &nbsp;(
+                label#knTotal -
+                label )
 
       .row.text-center(style='margin-top:10px;margin-bottom:20px;')
         form.form-inline.col-12.d-flex.justify-content-center(method='post', action='/search')
@@ -249,7 +262,7 @@ html
             button.btn.btn-success(type='submit') #{settings.locale.ex_search_button}
     block content
     div(class=footerClasses, role='navigation')
-      .col-md-4.navbar-nav
+      .col-md-2.navbar-nav
         if settings.display.twitter || settings.display.facebook || settings.display.googleplus || settings.display.youtube
           ul.nav.justify-content-left
             if settings.display.twitter
@@ -268,12 +281,22 @@ html
               li.pull-left
                 a#youtube-icon.nav-link.social-link(href="https://www.youtube.com/channel/"+settings.youtube, target='_blank')
                   span.glyphicon.fa.fa-youtube
-      .col-md-4.navbar-nav
-        ul.nav.justify-content-center
-          li.text-center(style='margin-left:80px;margin-right:80px;')
-            p(style='')
-              a.nav-link.poweredby(href='https://github.com/iquidus/explorer', target='_blank') Powered by Iquidus Explorer v#{settings.iquidus_version}
-      .col-md-4.navbar-nav
+      .col-md-2.navbar-nav
+        ul.nav.justify-content-left
+          li.text-center(style='margin-left:60px;margin-right:20px;')
+            a.navbar-link(style='color:navy', href='https://ohmcoin.org', target='_blank')
+              span.header-icons.fa.fa-key  ohmcoin.org
+      .col-md-2.navbar-nav
+        ul.nav.justify-content-left
+          li.text-center(style='margin-left:60px;margin-right:20px;')
+            a.navbar-link(style='color:navy', href='http://ohmc.tips', target='_blank')
+              span.header-icons.fa.fa-leaf  ohmc.tips
+      .col-md-2.navbar-nav
+        ul.nav.justify-content-left
+          li.text-center(style='margin-left:60px;margin-right:20px;')
+            a.nav-link.poweredby(href='https://github.com/iquidus/explorer', target='_blank')
+              span.header-icons.fa.fa-cog  Iquidus v#{settings.iquidus_version}
+      .col-md-3.navbar-nav
         ui.nav.justify-content-end
           label#lblBlockcount.badge.badge-pill.nav-link
           label#lblConnections.badge.badge-pill.nav-link

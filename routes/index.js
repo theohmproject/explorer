@@ -310,23 +310,37 @@ router.get('/ext/summary', function(req, res) {
     lib.get_hashrate(function(hashrate) {
       lib.get_connectioncount(function(connections){
         lib.get_blockcount(function(blockcount) {
-          db.get_stats(settings.coin, function (stats) {
-            if (hashrate == 'There was an error. Check your console.') {
-              hashrate = 0;
-            }
-            res.send({ data: [{
-              difficulty: difficulty,
-              difficultyHybrid: difficultyHybrid,
-              supply: stats.supply,
-              hashrate: hashrate,
-              lastPrice: stats.last_price,
-              connections: connections,
-              blockcount: blockcount
-            }]});
+          lib.get_karmanode_count(function(karmanode) {
+            db.get_stats(settings.coin, function (stats) {
+              if (hashrate == 'There was an error. Check your console.') {
+                hashrate = 0;
+              }
+              res.send({ data: [{
+                difficulty: difficulty,
+                difficultyHybrid: difficultyHybrid,
+                supply: stats.supply,
+                hashrate: hashrate,
+                lastPrice: stats.last_price,
+                connections: connections,
+                blockcount: blockcount,
+                karmanodeCount: karmanode['total'],
+                karmanodeStable: karmanode['stable']
+              }]});
+            });
           });
         });
       });
     });
   });
 });
+
+router.get('/ext/karmanode_count', function(req, res) {
+  lib.get_karmanode_count(function(count) {
+      res.send({ data: [{
+      	karmanode_count: count['total'],
+      	karmanode_stable: count['stable']
+    }]});
+  });
+});
+
 module.exports = router;
